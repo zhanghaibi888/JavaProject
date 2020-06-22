@@ -1,0 +1,10 @@
+{"idcard":"123231231","phone":"123434","id":0,"color":"red"}
+{"idcard":"123231231","phone":"","id":1,"color":"yellow"}
+{"idcard":"","phone":"123434","id":2,"color":"violet"}
+{"idcard":"123231231","phone":"123434","id":3,"color":"orange"}
+{"idcard":"","phone":"","id":4,"color":"red"}
+{"idcard":"","phone":"123434212","id":5,"color":"red"}
+{"idcard":"dasdas","phone":"123434212","id":6,"color":"red"}
+{"idcard":"","phone":"","id":7,"color":"red"}
+{"idcard":"dasdas","phone":"123434212","id":8,"color":"violet"}
+{"idcard":"dasdas","phone":"","id":9,"color":"yellow"}

@@ -1,0 +1,200 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.zhang</groupId>
+	<artifactId>apitest</artifactId>
+	<version>0.0.9-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.crab2died</groupId>
+			<artifactId>Excel4J</artifactId>
+			<version>3.0.0-Alpha</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.67</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github</groupId>
+			<artifactId>checkpoint</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/libs/checkpoint.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.aviator</groupId>
+			<artifactId>aviator</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.48</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+		<!-- 连接池 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.4</version>
+		</dependency>
+
+		<!-- 读取XML -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<!-- 读取配置文件工具 -->
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
+
+		<!-- 邮件工具 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<!-- slf4j 规范定义和桥架 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+		<!-- log4j2 实现 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.11.1</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<resources>
+			<!-- copy excel文件 -->
+			<resource>
+				<directory>${basedir}/data</directory>
+				<targetPath>${basedir}/target/data/</targetPath>
+				<includes>
+					<include>*.xlsx</include>
+					<include>*.csv</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<!-- 设定主资源目录 -->
+				<directory>src/main/resources</directory>
+				<!-- <includes> -->
+				<!-- <include>*.xml</include> -->
+				<!-- </includes> -->
+			</resource>
+		</resources>
+
+		<finalName>apitest</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- 依赖包处理 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<!-- <overWriteReleases>false</overWriteReleases> -->
+							<!-- <overWriteSnapshots>false</overWriteSnapshots> -->
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<!-- 默认配置 compile 所有编译运行的包 除了test -->
+							<includeScope>compile</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- maven jar插件扩展 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<!-- lib依赖 包和main方法关系通过 MANIFEST.MF配置文件维护 -->
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>test.ApiTestThread</mainClass>
+						</manifest>
+						<!-- 自定义包 写入MANIFEST.MF -->
+						<manifestEntries>
+							<Class-Path>lib/checkpoint-0.0.1-SNAPSHOT.jar</Class-Path>
+						</manifestEntries>
+					</archive>
+					<!--过滤掉不希望包含在jar中的文件 -->
+					<excludes>
+						<exclude>${basedir}/xml/*</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

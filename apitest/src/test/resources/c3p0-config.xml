@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+	<!-- 默认配置，只可以出现一次 -->
+	<default-config>
+		<!-- 配置JDBC 四个基本属性 -->
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="jdbcUrl">jdbc:mysql://118.24.13.38:3309/testfan_jiguang?characterEncoding=utf8&amp;useSSL=false</property>
+		<property name="user">root</property>
+		<property name="password">123456</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">3</property>
+		<!-- 初始化数据库连接池时连接的数量 -->
+		<property name="initialPoolSize">5</property>
+		<!-- 数据库连接池中的最小的数据库连接数 -->
+		<property name="minPoolSize">2</property>
+		<!-- 数据库连接池中的最大的数据库连接数 -->
+		<property name="maxPoolSize">10</property>
+	</default-config>
+
+	<named-config name="mysql">
+		<!-- 配置JDBC 四个基本属性 -->
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="jdbcUrl">jdbc:mysql://118.24.13.38:3309/testfan_jiguang?characterEncoding=utf8&amp;useSSL=false
+		</property>
+		<property name="user">root</property>
+		<property name="password">123456</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">3</property>
+		<!-- 初始化数据库连接池时连接的数量 -->
+		<property name="initialPoolSize">5</property>
+		<!-- 数据库连接池中的最小的数据库连接数 -->
+		<property name="minPoolSize">2</property>
+		<!-- 数据库连接池中的最大的数据库连接数 -->
+		<property name="maxPoolSize">10</property>
+	</named-config>
+
+	<named-config name="mysql2">
+		<!-- 配置JDBC 四个基本属性 -->
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="jdbcUrl">jdbc:mysql://118.24.13.38:3307/goods?characterEncoding=utf8&amp;useSSL=true
+		</property>
+		<property name="user">zhangsan</property>
+		<property name="password">123123</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">3</property>
+		<!-- 初始化数据库连接池时连接的数量 -->
+		<property name="initialPoolSize">5</property>
+		<!-- 数据库连接池中的最小的数据库连接数 -->
+		<property name="minPoolSize">2</property>
+		<!-- 数据库连接池中的最大的数据库连接数 -->
+		<property name="maxPoolSize">10</property>
+	</named-config>
+
+</c3p0-config>
